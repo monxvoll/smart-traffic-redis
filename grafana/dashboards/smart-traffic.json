@@ -1,0 +1,401 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": true,
+  "panels": [
+    {
+      "datasource": {
+        "type": "redis-datasource",
+        "uid": "smart-traffic-redis"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": null },
+              { "color": "yellow", "value": 15 },
+              { "color": "green", "value": 25 }
+            ]
+          },
+          "unit": "velocitykmh"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 5, "w": 6, "x": 0, "y": 0 },
+      "id": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "/^average_network_speed$/",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "command": "hgetall",
+          "keyName": "traffic:metrics:global",
+          "query": "",
+          "refId": "A",
+          "type": "command"
+        }
+      ],
+      "title": "Velocidad promedio de la red",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "redis-datasource",
+        "uid": "smart-traffic-redis"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 250 },
+              { "color": "red", "value": 400 }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 5, "w": 6, "x": 6, "y": 0 },
+      "id": 2,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "/^total_vehicles_per_minute$/",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "command": "hgetall",
+          "keyName": "traffic:metrics:global",
+          "refId": "A",
+          "type": "command"
+        }
+      ],
+      "title": "Vehículos por minuto (total)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "redis-datasource",
+        "uid": "smart-traffic-redis"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "thresholds" },
+          "decimals": 1,
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 60 },
+              { "color": "red", "value": 85 }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 0 },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "/^average_occupancy$/",
+          "values": false
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "command": "hgetall",
+          "keyName": "traffic:metrics:global",
+          "refId": "A",
+          "type": "command"
+        }
+      ],
+      "title": "Ocupación promedio",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "redis-datasource",
+        "uid": "smart-traffic-redis"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 0 },
+      "id": 4,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "command": "zrange",
+          "keyName": "traffic:ranking:occupancy",
+          "min": "-inf",
+          "max": "+inf",
+          "zrangeQuery": "BYSCORE",
+          "refId": "A",
+          "type": "command"
+        }
+      ],
+      "title": "Ranking de ocupación",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "redis-datasource",
+        "uid": "smart-traffic-redis"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 12,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 4,
+            "showPoints": "auto"
+          },
+          "unit": "velocitykmh"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 9, "w": 12, "x": 0, "y": 5 },
+      "id": 5,
+      "options": {
+        "legend": { "calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "multi", "sort": "none" }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "command": "xrange",
+          "count": 360,
+          "keyName": "traffic:stream",
+          "refId": "A",
+          "start": "",
+          "end": "",
+          "type": "command"
+        }
+      ],
+      "title": "Velocidad vs. tiempo",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": { "names": ["$time", "average_speed"] }
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "redis-datasource",
+        "uid": "smart-traffic-redis"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 12,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 4,
+            "showPoints": "auto"
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 9, "w": 12, "x": 12, "y": 5 },
+      "id": 6,
+      "options": {
+        "legend": { "calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true },
+        "tooltip": { "mode": "multi", "sort": "none" }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "command": "xrange",
+          "count": 360,
+          "keyName": "traffic:stream",
+          "refId": "A",
+          "start": "",
+          "end": "",
+          "type": "command"
+        }
+      ],
+      "title": "Vehículos por minuto vs. tiempo",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": { "names": ["$time", "vehicles_per_minute"] }
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "redis-datasource",
+        "uid": "smart-traffic-redis"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 60 },
+              { "color": "red", "value": 85 }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 11, "w": 16, "x": 0, "y": 14 },
+      "id": 7,
+      "options": {
+        "basemap": { "config": {}, "type": "default" },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": true,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": { "field": "occupancy", "fixed": "green" },
+                "opacity": 0.85,
+                "rotation": { "fixed": 0, "max": 360, "min": -360, "mode": "mod" },
+                "size": { "field": "occupancy", "fixed": 12, "max": 28, "min": 8 }
+              }
+            },
+            "location": {
+              "latitude": "latitude",
+              "longitude": "longitude",
+              "mode": "coords"
+            },
+            "name": "Sensores por ocupación",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": { "mode": "details" },
+        "view": {
+          "allLayers": true,
+          "id": "coords",
+          "lat": 5.7165,
+          "lon": -72.9275,
+          "zoom": 13
+        }
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        {
+          "command": "xrange",
+          "count": 360,
+          "keyName": "traffic:stream",
+          "refId": "A",
+          "start": "",
+          "end": "",
+          "type": "command"
+        }
+      ],
+      "title": "Sensores de tráfico en Sogamoso",
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "redis-datasource",
+        "uid": "smart-traffic-redis"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": { "h": 11, "w": 8, "x": 16, "y": 14 },
+      "id": 8,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true
+      },
+      "pluginVersion": "11.6.0",
+      "targets": [
+        { "command": "get", "keyName": "traffic:alert:TRAF-01", "refId": "A", "type": "command" },
+        { "command": "get", "keyName": "traffic:alert:TRAF-02", "refId": "B", "type": "command" },
+        { "command": "get", "keyName": "traffic:alert:TRAF-03", "refId": "C", "type": "command" },
+        { "command": "get", "keyName": "traffic:alert:TRAF-04", "refId": "D", "type": "command" },
+        { "command": "get", "keyName": "traffic:alert:TRAF-05", "refId": "E", "type": "command" },
+        { "command": "get", "keyName": "traffic:alert:TRAF-06", "refId": "F", "type": "command" }
+      ],
+      "title": "Alertas activas",
+      "type": "table"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 40,
+  "tags": ["redis", "traffic", "uptc"],
+  "templating": { "list": [] },
+  "time": { "from": "now-10m", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Tráfico inteligente — Sogamoso",
+  "uid": "smart-traffic-sogamoso",
+  "version": 1,
+  "weekStart": ""
+}

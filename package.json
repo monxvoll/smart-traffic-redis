@@ -1,0 +1,21 @@
+{
+  "name": "smart-traffic-redis",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monitoreo académico de tráfico simulado en tiempo real con Redis y Grafana",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start:publisher": "node src/publisher/index.js",
+    "start:processor": "node src/processor/index.js",
+    "scenario": "node src/tools/set-scenario.js",
+    "verify": "node src/tools/verify-stack.js",
+    "test": "node --test",
+    "check": "node --check src/publisher/index.js && node --check src/processor/index.js && node --check src/tools/set-scenario.js && node --check src/tools/verify-stack.js"
+  },
+  "dependencies": {
+    "redis": "^5.8.2"
+  }
+}
