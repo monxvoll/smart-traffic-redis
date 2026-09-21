@@ -1,0 +1,56 @@
+[
+  {
+    "id": "TRAF-01",
+    "name": "Punto simulado Centro",
+    "zone": "CENTRO",
+    "latitude": 5.71495,
+    "longitude": -72.92835,
+    "segment_length_km": 1.2,
+    "initial_scenario": "LOW"
+  },
+  {
+    "id": "TRAF-02",
+    "name": "Punto simulado Centro Norte",
+    "zone": "CENTRO_NORTE",
+    "latitude": 5.72114,
+    "longitude": -72.9271,
+    "segment_length_km": 1.5,
+    "initial_scenario": "MEDIUM"
+  },
+  {
+    "id": "TRAF-03",
+    "name": "Punto simulado Oriente",
+    "zone": "ORIENTE",
+    "latitude": 5.71636,
+    "longitude": -72.91875,
+    "segment_length_km": 1.1,
+    "initial_scenario": "HIGH"
+  },
+  {
+    "id": "TRAF-04",
+    "name": "Punto simulado Sur",
+    "zone": "SUR",
+    "latitude": 5.70685,
+    "longitude": -72.92764,
+    "segment_length_km": 1.8,
+    "initial_scenario": "CONGESTED"
+  },
+  {
+    "id": "TRAF-05",
+    "name": "Punto simulado Occidente",
+    "zone": "OCCIDENTE",
+    "latitude": 5.71422,
+    "longitude": -72.93725,
+    "segment_length_km": 2.0,
+    "initial_scenario": "RECOVERY"
+  },
+  {
+    "id": "TRAF-06",
+    "name": "Punto simulado Norte",
+    "zone": "NORTE",
+    "latitude": 5.7281,
+    "longitude": -72.9254,
+    "segment_length_km": 1.6,
+    "initial_scenario": "MEDIUM"
+  }
+]
