@@ -181,6 +181,7 @@
           "min": "-inf",
           "max": "+inf",
           "zrangeQuery": "BYSCORE",
+          "withScores": true,
           "refId": "A",
           "type": "command"
         }
@@ -230,7 +231,13 @@
         {
           "id": "filterFieldsByName",
           "options": {
-            "include": { "names": ["$time", "average_speed"] }
+            "include": { "names": ["$time", "entity_id", "average_speed"] }
+          }
+        },
+        {
+          "id": "partitionByValues",
+          "options": {
+            "fields": ["entity_id"]
           }
         }
       ],
@@ -278,7 +285,13 @@
         {
           "id": "filterFieldsByName",
           "options": {
-            "include": { "names": ["$time", "vehicles_per_minute"] }
+            "include": { "names": ["$time", "entity_id", "vehicles_per_minute"] }
+          }
+        },
+        {
+          "id": "partitionByValues",
+          "options": {
+            "fields": ["entity_id"]
           }
         }
       ],
@@ -305,7 +318,7 @@
       "gridPos": { "h": 11, "w": 16, "x": 0, "y": 14 },
       "id": 7,
       "options": {
-        "basemap": { "config": {}, "type": "default" },
+        "basemap": { "config": {}, "type": "osm-standard" },
         "controls": {
           "mouseWheelZoom": true,
           "showAttribution": true,
@@ -346,14 +359,17 @@
       },
       "pluginVersion": "11.6.0",
       "targets": [
+        { "command": "hgetall", "keyName": "sensor:traffic:TRAF-01", "refId": "A", "type": "command" },
+        { "command": "hgetall", "keyName": "sensor:traffic:TRAF-02", "refId": "B", "type": "command" },
+        { "command": "hgetall", "keyName": "sensor:traffic:TRAF-03", "refId": "C", "type": "command" },
+        { "command": "hgetall", "keyName": "sensor:traffic:TRAF-04", "refId": "D", "type": "command" },
+        { "command": "hgetall", "keyName": "sensor:traffic:TRAF-05", "refId": "E", "type": "command" },
+        { "command": "hgetall", "keyName": "sensor:traffic:TRAF-06", "refId": "F", "type": "command" }
+      ],
+      "transformations": [
         {
-          "command": "xrange",
-          "count": 360,
-          "keyName": "traffic:stream",
-          "refId": "A",
-          "start": "",
-          "end": "",
-          "type": "command"
+          "id": "merge",
+          "options": {}
         }
       ],
       "title": "Sensores de tráfico en Sogamoso",
@@ -382,6 +398,19 @@
         { "command": "get", "keyName": "traffic:alert:TRAF-04", "refId": "D", "type": "command" },
         { "command": "get", "keyName": "traffic:alert:TRAF-05", "refId": "E", "type": "command" },
         { "command": "get", "keyName": "traffic:alert:TRAF-06", "refId": "F", "type": "command" }
+      ],
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "Value",
+            "format": "json"
+          }
+        }
       ],
       "title": "Alertas activas",
       "type": "table"
